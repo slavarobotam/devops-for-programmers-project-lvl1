@@ -6,7 +6,10 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.production
-        env_file: '.env'
+        environment:
+            NODOS_DB_HOSTNAME: ${NODOS_DB_HOSTNAME}
+            NODOS_DB_USERNAME: ${NODOS_DB_USERNAME}
+            NODOS_DB_PASSWORD: ${NODOS_DB_PASSWORD}
         ports:
             - "8080:8080"
         volumes:
