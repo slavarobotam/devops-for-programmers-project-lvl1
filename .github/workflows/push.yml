@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run test
+        run: make test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ott45/devops-for-programmers-project-lvl1:latest
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
