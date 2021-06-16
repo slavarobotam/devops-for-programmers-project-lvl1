@@ -12,14 +12,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      NODOS_DB_HOSTNAME: localhost
-      NODOS_DB_USERNAME: postgres
-      NODOS_DB_PASSWORD: postgres
+      NODOS_DB_HOSTNAME: ${{ secrets.NODOS_DB_HOSTNAME }}
+      NODOS_DB_USERNAME: ${{ secrets.NODOS_DB_USERNAME }}
+      NODOS_DB_PASSWORD: ${{ secrets.NODOS_DB_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
 
+      - name: Npm install
+        run: npm install
+
       - name: Run test
-        run: make test
+        run: npm test
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
