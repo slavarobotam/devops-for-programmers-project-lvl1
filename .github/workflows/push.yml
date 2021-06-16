@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run test
-        run: make test
+        run: npm test
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
