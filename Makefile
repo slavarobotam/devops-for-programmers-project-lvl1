@@ -6,10 +6,11 @@ down:
 	docker-compose down
 
 up:
+	docker-compose down
 	docker-compose up
 
 test:
-	docker-compose -f docker-compose.yml up
+	docker-compose -f docker-compose.yml up --abort-on-container-exit
 
 run:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
