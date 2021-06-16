@@ -37,6 +37,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile.production
+          file: Dockerfile
           push: true
           tags: ott45/devops-for-programmers-project-lvl1:latest
