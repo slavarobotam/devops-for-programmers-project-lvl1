@@ -6,15 +6,13 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        environment:
-            NODOS_DB_HOSTNAME: ${NODOS_DB_HOSTNAME}
-            NODOS_DB_USERNAME: ${NODOS_DB_USERNAME}
-            NODOS_DB_PASSWORD: ${NODOS_DB_PASSWORD}
         ports:
             - "8080:8080"
         volumes:
             - .:/app
         command: nodos server -h 0.0.0.0
+        depends_on:
+            - db
 
     caddy:
         image: caddy:2.3.0-alpine
@@ -28,6 +26,14 @@ services:
             - caddy_config:/config
         depends_on:
             - app
+
+    db:
+        image: ${NODOS_DB_TYPE}:latest
+        container_name: db
+        environment:
+            POSTGRES_USER: ${NODOS_DB_USERNAME}
+            POSTGRES_PASSWORD: ${NODOS_DB_PASSWORD}
+            POSTGRES_DB: ${NODOS_DB_HOSTNAME}
 
 volumes:
     caddy_data:
